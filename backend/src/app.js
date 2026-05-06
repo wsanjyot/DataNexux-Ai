@@ -8,6 +8,7 @@ const swaggerSpec = require('./config/swagger');
 
 const app = express();
 
+// ── CORS ──────────────────────────────────────────────────────
 app.use(cors({
   origin: [
     'http://localhost:3000',
@@ -19,10 +20,6 @@ app.use(cors({
 
 // ── Security middleware ───────────────────────────────────────
 app.use(helmet());
-app.use(cors({
-  origin:      process.env.CLIENT_URL || 'http://localhost:3000',
-  credentials: true,
-}));
 
 // ── Rate limiter ──────────────────────────────────────────────
 const limiter = rateLimit({
@@ -45,17 +42,17 @@ app.get('/api/health', (req, res) => {
 });
 
 // ── Routes ────────────────────────────────────────────────────
-const authRoutes = require('./routes/authRoutes');
-const queryRoutes = require('./routes/queryRoutes');
-const sourcesRoutes = require('./routes/sourcesRoutes');
-const aiRoutes      = require('./routes/aiRoutes');
+const authRoutes      = require('./routes/authRoutes');
+const queryRoutes     = require('./routes/queryRoutes');
+const sourcesRoutes   = require('./routes/sourcesRoutes');
+const aiRoutes        = require('./routes/aiRoutes');
 const schedulerRoutes = require('./routes/schedulerRoutes');
 const exportRoutes    = require('./routes/exportRoutes');
 
-app.use('/api/auth', authRoutes);
-app.use('/api/query', queryRoutes);
-app.use('/api/sources', sourcesRoutes);
-app.use('/api/ai',      aiRoutes);
+app.use('/api/auth',      authRoutes);
+app.use('/api/query',     queryRoutes);
+app.use('/api/sources',   sourcesRoutes);
+app.use('/api/ai',        aiRoutes);
 app.use('/api/scheduler', schedulerRoutes);
 app.use('/api/export',    exportRoutes);
 
