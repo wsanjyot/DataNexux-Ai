@@ -8,6 +8,14 @@ const swaggerSpec = require('./config/swagger');
 
 const app = express();
 
+app.use(cors({
+  origin: [
+    'http://localhost:3000',
+    'https://datanexus-ai-sanjyot.netlify.app',
+    process.env.CLIENT_URL,
+  ].filter(Boolean),
+  credentials: true,
+}));
 
 // ── Security middleware ───────────────────────────────────────
 app.use(helmet());
