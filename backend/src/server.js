@@ -6,10 +6,13 @@ const PORT = process.env.PORT || 5000;
 
 const start = async () => {
   try {
+    console.log('Connecting to database...');
     await pool.query('SELECT 1');
     console.log('Database connection verified');
 
-    app.listen(PORT, () => {
+    await loadJobsFromDB();
+
+    app.listen(PORT, '0.0.0.0', () => {
       console.log(`Server running on port ${PORT}`);
     });
   } catch (err) {
